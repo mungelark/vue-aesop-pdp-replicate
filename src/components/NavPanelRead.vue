@@ -1,6 +1,6 @@
 <template>
   <div class="panel-content-wrapper">
-    <ul class="read-list">
+    <ul class="read-list" v-if="readMenu">
       <template v-for="category in readMenu.categories" :key="category.name">
         <li
           :class="[

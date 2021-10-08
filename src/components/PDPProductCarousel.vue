@@ -115,10 +115,10 @@ export default defineComponent({
       swiperEl.value = swiper;
     };
 
-    const onSlideChange = (
-      swiper: SwiperInstance & { snapGrid: number[]; snapIndex: number }
-    ) => {
+    const onSlideChange = (swiper: SwiperInstance) => {
+      // @ts-ignore: missing definition
       snapSize.value = swiper.snapGrid.length;
+      // @ts-ignore: missing definition
       snapIdx.value = swiper.snapIndex;
     };
 

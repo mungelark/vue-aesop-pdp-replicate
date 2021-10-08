@@ -15,7 +15,11 @@
         </div>
       </template>
     </div>
-    <flying-panel ref="shippingModal" :panelData="slideoutPanelData" />
+    <flying-panel
+      ref="shippingModal"
+      v-if="slideoutPanelData"
+      :panelData="slideoutPanelData"
+    />
   </section>
 </template>
 

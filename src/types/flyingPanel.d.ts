@@ -1,3 +1,4 @@
+import { NSProduct } from "./product";
 import { NSShippingBanner } from "./shippingBanner";
 
 export namespace NSFlyingPanel {
@@ -13,6 +14,6 @@ export namespace NSFlyingPanel {
     heading?: string;
     shippingLineItem?: NSShippingBanner.ShippingLineItem[];
     isIngredients?: boolean;
-    copy?: object;
+    copy?: NSProduct.Copy2;
   }
 }

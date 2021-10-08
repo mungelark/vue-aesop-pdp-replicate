@@ -1,6 +1,6 @@
 <template>
   <div class="panel-content-wrapper">
-    <ul class="read-list">
+    <ul class="read-list" v-if="category">
       <li
         class="panel-list-item read-item content-hub-link"
         v-if="category.readMoreText"

@@ -21,6 +21,7 @@
                 :flyoutPanel="product.flyoutPanel"
               />
               <p-d-body-purchase
+                v-if="currentVariant"
                 :currentVariant="currentVariant"
                 :product="product"
                 @updateCurrentVariant="onUpdateCurrentVariant"
@@ -40,6 +41,7 @@
               :flyoutPanel="product.flyoutPanel"
             />
             <p-d-body-purchase
+              v-if="currentVariant"
               :currentVariant="currentVariant"
               :product="product"
               @updateCurrentVariant="onUpdateCurrentVariant"

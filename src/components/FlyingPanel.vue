@@ -20,6 +20,7 @@
         <template v-else-if="isIngredientsPanel">
           <p
             class="ingredients"
+            v-if="panelData.copy"
             v-html="parseIngredientsContent(panelData.copy)"
           ></p>
           <p class="ingredients-extra">

@@ -31,7 +31,7 @@ import { NSShopMenu } from "../types/shopMenu";
 export default defineComponent({
   props: {
     products: {
-      type: Array as PropType<NSShopMenu.Item[]>,
+      type: Array as PropType<NSShopMenu.Item2[]>,
       required: true,
     },
   },

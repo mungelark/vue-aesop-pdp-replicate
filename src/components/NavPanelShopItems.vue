@@ -8,14 +8,14 @@
           'headline-item',
           subLayerId === 'filters.0' && 'is-selected',
         ]"
-        v-if="headlineItem"
+        v-if="headlineItem && category"
         :key="category.name"
       >
         <a
           :href="headlineItem.url"
           class="panel-list-link"
-          @click.stop="onClickSubLayerItem(item, true)"
-          @mouseover="onClickSubLayerItem(item, true)"
+          @click.stop="onClickSubLayerItem(category, true)"
+          @mouseover="onClickSubLayerItem(category, true)"
           >{{
             isProductList
               ? `${headlineItem.name} ${category.name}`
@@ -23,7 +23,7 @@
           }}</a
         >
       </li>
-      <template v-if="!isProductList">
+      <template v-if="!isProductList && category && category.items">
         <template v-for="item in category.items" :key="item.code">
           <li
             :class="[
@@ -45,6 +45,7 @@
       </template>
       <template v-else>
         <nav-panel-product-list
+          v-if="category && category.items"
           :products="category.items.map((x) => x.items).flat()"
         />
       </template>
@@ -85,9 +86,10 @@ export default defineComponent({
 
     const onClickSubLayerId = safeInject(NAV_FN_ON_CLICK_SUB_LAYER_ID);
     const onClickSubLayerItem = (
-      item: NSShopMenu.Item | NSShopMenu.Category,
+      item: NSShopMenu.Item | NSShopMenu.Category | undefined,
       isCategory = false
     ) => {
+      if (item === undefined) return;
       let id = undefined;
       if (isCategory) {
         id = !isProductList.value ? "filters.0" : undefined;

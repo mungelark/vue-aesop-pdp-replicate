@@ -10,7 +10,7 @@
         />
         <source
           media="(min-width: 640px)"
-          :srcset="currentVariant.image.media"
+          :srcset="currentVariant.image.medium"
         />
         <source media="(min-width: 0px)" :srcset="currentVariant.image.small" />
         <img loading="lazy" :alt="currentVariant.image.altText" />

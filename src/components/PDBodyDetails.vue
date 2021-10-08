@@ -23,7 +23,7 @@
   <flying-panel
     ref="ingredientModal"
     :panelData="flyoutPanel"
-    v-if="hasFlyingPanel"
+    v-if="hasFlyingPanel && flyoutPanel"
   />
 </template>
 

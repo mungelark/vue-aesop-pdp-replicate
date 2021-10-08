@@ -27,7 +27,7 @@
             :href="item.url"
             class="panel-list-link"
             @click.prevent.stop="onClickSubLayerItem(item)"
-            @mouseover="onClickSubLayerItem(item)"
+            @mouseover="isLargeDesktopView && onClickSubLayerItem(item)"
             >{{ item.title }}
             <p class="link-subtitle" v-if="item.readingTime">
               {{ item.readingTime }}
@@ -43,6 +43,7 @@
 import { computed, defineComponent } from "vue";
 import { safeInject } from "../compostables/common";
 import {
+  IS_LDESKTOP_VIEW,
   NAV_FN_ON_CLICK_SUB_LAYER_ID,
   NAV_MAIN_LAYER_ID,
   NAV_SUB_LAYER_ID,
@@ -52,6 +53,8 @@ import { NSReadMenu } from "../types/readMenu";
 
 export default defineComponent({
   setup() {
+    const isLargeDesktopView = safeInject(IS_LDESKTOP_VIEW);
+
     const readMenu = safeInject(READ_MENU);
     const mainLayerId = safeInject(NAV_MAIN_LAYER_ID);
     const subLayerId = safeInject(NAV_SUB_LAYER_ID);
@@ -67,6 +70,8 @@ export default defineComponent({
     };
 
     return {
+      isLargeDesktopView,
+
       category,
       subLayerId,
 

@@ -13,7 +13,7 @@
         </div>
       </div>
       <template
-        v-for="nmLayer in isDesktopView ? 3 : 2"
+        v-for="nmLayer in isLargeDesktopView ? 3 : 2"
         :key="`nmLayer-${nmLayer}`"
       >
         <navbar-menu :layer="nmLayer" />
@@ -40,7 +40,7 @@ import { safeInject } from "../compostables/common";
 import {
   APP_STORE,
   CART_FN_ON_CLICK_CART_BTN,
-  IS_DESKTOP_VIEW,
+  IS_LDESKTOP_VIEW,
   NAV_IS_OPEN,
   NAV_NEXT_LAYER,
 } from "../symbols";
@@ -53,7 +53,7 @@ export default defineComponent({
     AesopLogo,
   },
   setup() {
-    const isDesktopView = safeInject(IS_DESKTOP_VIEW);
+    const isLargeDesktopView = safeInject(IS_LDESKTOP_VIEW);
 
     const store = safeInject(APP_STORE);
     const isAlert = computed(() => !!store.state.alertMessage);
@@ -103,7 +103,7 @@ export default defineComponent({
     };
 
     return {
-      isDesktopView,
+      isLargeDesktopView,
 
       isAlert,
       alertMessage,

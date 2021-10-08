@@ -104,6 +104,7 @@ import {
   CART_FN_ON_CLICK_CART_BTN,
   CART_ITEM_QUANTITY,
   IS_DESKTOP_VIEW,
+  IS_LDESKTOP_VIEW,
   NAV_CURRENT_LAYER,
   NAV_FN_ON_CLICK_CLOSE_BTN,
   NAV_FN_ON_CLICK_NAV_ITEM,
@@ -124,10 +125,12 @@ export default defineComponent({
   },
   setup(props) {
     const isDesktopView = safeInject(IS_DESKTOP_VIEW);
+    const isLargeDesktopView = safeInject(IS_LDESKTOP_VIEW);
 
     const isMainLayer = computed(() => props.layer === 1);
     const isCartLayer = computed(
-      () => props.layer === 3 || (!isDesktopView.value && props.layer === 2)
+      () =>
+        props.layer === 3 || (!isLargeDesktopView.value && props.layer === 2)
     );
     const isOpen = safeInject(NAV_IS_OPEN);
 
@@ -135,7 +138,10 @@ export default defineComponent({
     const isFocus = computed(
       () =>
         currentLayer.value === props.layer ||
-        (currentLayer.value === 3 && props.layer !== 1)
+        (currentLayer.value === 3 && props.layer !== 1) ||
+        (!isLargeDesktopView.value &&
+          currentLayer.value >= props.layer &&
+          props.layer === 1)
     );
 
     const activeNavItem = safeInject(NAV_MAIN_ITEM_REF);

@@ -126,7 +126,7 @@ export default defineComponent({
       const width =
         100 *
         (1 /
-          (isDesktopView.value ? items.value.length + 1 : items.value.length));
+          (isDesktopView.value ? items.value.length - 1 : items.value.length));
       const left = snapIdx.value * width;
 
       return {

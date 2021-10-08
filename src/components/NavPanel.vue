@@ -2,7 +2,7 @@
   <section class="nav-panel-container" @click.self.stop="onClickCloseBtn">
     <nav-panel-main />
     <nav-panel-sub v-if="currentLayer > 1" />
-    <nav-panel-extra v-if="currentLayer === 3" />
+    <nav-panel-extra v-if="currentLayer === 3 && isLargeDesktopView" />
   </section>
 </template>
 
@@ -12,7 +12,11 @@ import { safeInject } from "../compostables/common";
 import NavPanelMain from "./NavPanelMain.vue";
 import NavPanelSub from "./NavPanelSub.vue";
 import NavPanelExtra from "./NavPanelExtra.vue";
-import { NAV_CURRENT_LAYER, NAV_FN_ON_CLICK_CLOSE_BTN } from "../symbols";
+import {
+  IS_LDESKTOP_VIEW,
+  NAV_CURRENT_LAYER,
+  NAV_FN_ON_CLICK_CLOSE_BTN,
+} from "../symbols";
 
 export default defineComponent({
   components: {
@@ -22,11 +26,13 @@ export default defineComponent({
   },
   setup() {
     const currentLayer = safeInject(NAV_CURRENT_LAYER);
+    const isLargeDesktopView = safeInject(IS_LDESKTOP_VIEW);
 
     const onClickCloseBtn = safeInject(NAV_FN_ON_CLICK_CLOSE_BTN);
 
     return {
       currentLayer,
+      isLargeDesktopView,
 
       onClickCloseBtn,
     };
@@ -52,9 +58,14 @@ export default defineComponent({
   position: relative;
   z-index: 800;
   flex-basis: auto;
-  width: calc(100% / 3);
+  width: 50%;
+
   animation: slide-right-100 1s cubic-bezier(0.32, 0.24, 0.15, 1) 1ms forwards;
   transform: translate(-100%);
+
+  @media (min-width: 1024px) {
+    width: calc(100% / 3);
+  }
 
   &.nav-sub-panel {
     z-index: 700;

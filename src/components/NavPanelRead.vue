@@ -13,7 +13,7 @@
             :href="category.url"
             class="panel-list-link"
             @click.prevent.stop="onClickMainLayerItem(category)"
-            @mouseover="onClickMainLayerItem(category)"
+            @mouseover="isLargeDesktopView && onClickMainLayerItem(category)"
           >
             {{ category.name
             }}<external-link
@@ -32,6 +32,7 @@ import { defineComponent } from "vue";
 import { safeInject } from "../compostables/common";
 import ExternalLink from "../svgs/ExternalLink.vue";
 import {
+  IS_LDESKTOP_VIEW,
   NAV_FN_ON_CLICK_MAIN_LAYER_ID,
   NAV_MAIN_LAYER_ID,
   READ_MENU,
@@ -43,6 +44,8 @@ export default defineComponent({
     ExternalLink,
   },
   setup() {
+    const isLargeDesktopView = safeInject(IS_LDESKTOP_VIEW);
+
     const readMenu = safeInject(READ_MENU);
     const mainLayerId = safeInject(NAV_MAIN_LAYER_ID);
 
@@ -53,6 +56,8 @@ export default defineComponent({
     };
 
     return {
+      isLargeDesktopView,
+
       readMenu,
       mainLayerId,
 

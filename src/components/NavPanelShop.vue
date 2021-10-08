@@ -13,11 +13,13 @@
             :href="category.url"
             class="panel-list-link"
             @click.prevent.stop="onClickMainLayerItem(category)"
-            @mouseover="onClickMainLayerItem(category)"
+            @mouseover="isLargeDesktopView && onClickMainLayerItem(category)"
           >
             {{ category.name }}
           </a>
-          <sup class="panel-item-num">{{ getCategoryItemsNum(category) }}</sup>
+          <sup class="panel-item-num" v-if="isLargeDesktopView">{{
+            getCategoryItemsNum(category)
+          }}</sup>
         </li>
       </template>
     </ul>
@@ -33,6 +35,7 @@
 import { defineComponent } from "vue";
 import { safeInject } from "../compostables/common";
 import {
+  IS_LDESKTOP_VIEW,
   NAV_FN_ON_CLICK_MAIN_LAYER_ID,
   NAV_MAIN_LAYER_ID,
   SHOP_MENU,
@@ -41,13 +44,18 @@ import { NSShopMenu } from "../types/shopMenu";
 
 export default defineComponent({
   setup() {
+    const isLargeDesktopView = safeInject(IS_LDESKTOP_VIEW);
+
     const shopMenu = safeInject(SHOP_MENU);
     const mainLayerId = safeInject(NAV_MAIN_LAYER_ID);
 
     const onClickMainLayerId = safeInject(NAV_FN_ON_CLICK_MAIN_LAYER_ID);
     const onClickMainLayerItem = (item: NSShopMenu.Category) => {
       const id = item.items && item.items.length ? item.name : undefined;
-      onClickMainLayerId(id);
+      if (item.isProductListNext) location.href = item.url;
+      else {
+        onClickMainLayerId(id);
+      }
     };
 
     const getCategoryItemsNum = (category: NSShopMenu.Category) => {
@@ -58,6 +66,8 @@ export default defineComponent({
     };
 
     return {
+      isLargeDesktopView,
+
       shopMenu,
       mainLayerId,
 

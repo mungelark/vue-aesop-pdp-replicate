@@ -15,7 +15,7 @@
           :href="headlineItem.url"
           class="panel-list-link"
           @click.stop="onClickSubLayerItem(category, true)"
-          @mouseover="onClickSubLayerItem(category, true)"
+          @mouseover="isLargeDesktopView && onClickSubLayerItem(category, true)"
           >{{
             isProductList
               ? `${headlineItem.name} ${category.name}`
@@ -39,7 +39,9 @@
               @mouseover="onClickSubLayerItem(item)"
               >{{ item.name }}</a
             >
-            <sup class="panel-item-num">{{ item.items.length }}</sup>
+            <sup class="panel-item-num" v-if="isLargeDesktopView">{{
+              item.items.length
+            }}</sup>
           </li>
         </template>
       </template>
@@ -58,6 +60,7 @@ import { computed, defineComponent } from "vue";
 import { safeInject } from "../compostables/common";
 import NavPanelProductList from "./NavPanelProductList.vue";
 import {
+  IS_LDESKTOP_VIEW,
   NAV_FN_ON_CLICK_SUB_LAYER_ID,
   NAV_MAIN_LAYER_ID,
   NAV_SUB_LAYER_ID,
@@ -70,6 +73,8 @@ export default defineComponent({
     NavPanelProductList,
   },
   setup() {
+    const isLargeDesktopView = safeInject(IS_LDESKTOP_VIEW);
+
     const shopMenu = safeInject(SHOP_MENU);
     const mainLayerId = safeInject(NAV_MAIN_LAYER_ID);
     const subLayerId = safeInject(NAV_SUB_LAYER_ID);
@@ -103,6 +108,8 @@ export default defineComponent({
     };
 
     return {
+      isLargeDesktopView,
+
       category,
       subLayerId,
       isProductList,
